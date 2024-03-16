@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Management System</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="your_website_domain/css_root/flaticon.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body><span id="image"><img src="privacy.png" alt="lock"></span><h1> <span id="h1">PASSWORD</span> <span id="h2">MANAGER</span> </h1>
+    <div class="container">
+        <div class="max">
+            <h4>Add New Password</h4>
+            <div class="site1">
+                <i class="fa-solid fa-link"></i>
+                <div class="central"></div>
+                <input type="text" id="site" placeholder="Enter Website">
+            </div>
+            <div class="site1"><i class="fa-solid fa-user"></i>
+                <div class="central"></div><input type="text" id="username" placeholder="Enter Username">
+            </div>
+            <div class="site1"><i class="fa-solid fa-lock"></i>
+                <div class="central"></div><input type="password" id="password" placeholder="Enter Password">
+            </div>
+
+            <button onclick="addPassword()" class="upper">Add </button>
+        </div>
+        <div class="image">
+            <img src="password manage.png" alt="password">
+        </div>
+
+    </div>
+    <div class="Password">
+        <div class="min">
+            <p>Your Password <span id="count"></span></p>
+            <div class="site1">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <div class="central"></div>
+                <input type="text" id="searchInput" placeholder="Search by URL..." oninput="filterList()">
+
+            </div>
+        </div>
+        <div class="checkbox">
+            <input type="checkbox" id="togglePasswords">
+            <label for="togglePasswords" id="showPassword">Show Password</label>
+        </div>
+        <div class="bottom">
+            <ul id="passwords"></ul>
+        </div>
+
+    </div>
+
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>

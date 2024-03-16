@@ -1,0 +1,294 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ABB4E3;
+    display: flex;
+    flex-direction: column;
+}
+.Password{
+    display: flex;
+    flex-flow: row wrap;
+    height: 500px;
+}
+.container {
+    width: 60%;
+    margin: 20px auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #55609C;
+    display: flex;
+    justify-content:space-around;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+#searchInput{
+    width: 100%;
+    height: 35SSSpx;
+}
+.min{
+    width: 93%;
+    height: 50px;
+    display: flex;
+    border-bottom:1px solid wheat;
+    margin: 20px;
+
+    justify-content: space-between;
+} 
+p{
+    color: wheat;
+}
+hr{
+    color: #dc3545;
+}
+.max{
+    display: flex;
+    width: 40%;
+    border-radius: 20px;
+    flex-direction: column;
+    background-color: #434B7C;
+    justify-content: start;
+    padding-left: 20px;
+}
+.icon {
+    font-size: 24px;
+    vertical-align: middle;
+}
+img{
+   max-width: 100%;
+}
+.image{
+    max-width:  30%;
+    height: 40%;
+}
+.Password{
+    width: 57%;
+    padding: 20px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: start;
+    /* align-items: end; */
+    /* flex-basis: 300px; */
+    overflow: auto;
+    background-color: #55609C;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+#count{
+    width: 40px;
+    /* height: 20px; */
+    color: wheat;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 10px;
+    position: relative;
+    bottom: 10px; 
+    border-radius: 15px;
+    border:1px solid wheat;
+}
+
+h4 {
+    text-align:left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+#showPassword{
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+button {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+.row{
+    display: flex;
+    height: 100px;
+    /* row-gap: 80px; */
+    padding: 10px 15px 20px;
+    justify-content: start;
+    align-items: center;
+}
+
+.circular{
+    width: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    border-radius: 50%;
+    font-size: 20px;
+    margin-right:30px ;
+    color: wheat;
+    
+}
+/* #togglePasswords{
+    width: 30%;
+    height: 50px;
+    position: absolute;
+    right: 50px;
+} */
+.checkbox{
+flex-basis: 600px;
+margin-left: 75%;
+align-content: start;
+    color: wheat;
+    width: 200px;
+    height: 25px;
+}
+.upper {
+    background-color: #0968F1;
+    color: #fff;
+    width: 30%;
+    position: relative;
+    left: 60%;
+    cursor: pointer;
+}
+.bottom{
+    height: 75%;
+    width: 100%;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+ .empty-text{
+    text-align: center;
+    width:200px ;
+    margin-left: 40%;
+    color: wheat;
+    margin-top: 10%;
+}
+.empty-text .fa-solid {
+width: 200px;
+margin-bottom: 20px;
+font-size: 100px;
+    color: white;
+}
+li {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+}
+.central{
+    position: absolute;
+    height: 80%;
+    padding-left: 40px;
+    width: 0px;
+    border-right: 1px solid #55609C;
+}
+.site1 {
+    position: relative;
+
+}
+input::placeholder {
+    color: #55609C; /* Placeholder text color */
+}
+/* Style the icon */
+.site1 input {
+    padding-left: 45px; /* Add padding to accommodate the icon */
+}
+
+.site1 i {
+    position: absolute;
+    left: 13px; /* Adjust the icon position */
+    top: 42%;
+    color: #55609C;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevent the icon from being clickable */
+    font-size: 14px; /* Decrease the icon size */
+}
+li span,span {
+    font-weight: bold;
+    color: black;
+}
+h1{
+    display: flex;
+    flex-direction: column;
+    margin-left:  350px ;
+}
+#image{
+    position: relative;
+    left: 250px;
+    top: 100px;
+    width: 80px;
+    height: 80px;
+}
+#h2{
+    color: #55609C;   
+}
+#h1{
+    color: #434B7C;
+}
+.delete {
+    cursor: pointer;
+    color: #dc3545;
+    width: 30px;
+    height: 10px;
+    position: relative;
+    right: 20px;
+    margin-right: 10px;
+    
+}
+
+
+.delete:hover {
+    text-decoration: underline;
+}
+
+
+#passwords{
+    display: flex;
+    justify-content: start;
+    flex-flow: row wrap;
+
+}
+.passDiv{
+    width: 340px;
+    height: 120px;
+    background-color: transparent;
+    margin-left: 60px;
+    margin-bottom: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+#first,#second,#show{
+    font-size: 15px;
+    width: 100%;
+    word-wrap: break-word;
+}
+#secondary {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    flex-direction: column;
+    column-gap: 40%;
+    font-size: 15px;
+    max-width: 150px;
+    text-align: start;
+    height: 70px;
+    margin-right: 60px;
+    margin-top: 0px;
+    padding-bottom: 10px;
+   
+}
