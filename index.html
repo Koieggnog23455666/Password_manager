@@ -12,23 +12,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body><span id="image"><img src="privacy.png" alt="lock"></span><h1> <span id="h1">PASSWORD</span> <span id="h2">MANAGER</span> </h1>
+<body><span id="image"><img src="privacy.png" alt="lock"></span>
+    <h1> <span id="h1">PASSWORD</span> <span id="h2">MANAGER</span> </h1>
     <div class="container">
         <div class="max">
             <h4>Add New Password</h4>
-            <div class="site1">
-                <i class="fa-solid fa-link"></i>
-                <div class="central"></div>
-                <input type="text" id="site" placeholder="Enter Website">
-            </div>
-            <div class="site1"><i class="fa-solid fa-user"></i>
-                <div class="central"></div><input type="text" id="username" placeholder="Enter Username">
-            </div>
-            <div class="site1"><i class="fa-solid fa-lock"></i>
-                <div class="central"></div><input type="password" id="password" placeholder="Enter Password">
-            </div>
-
-            <button onclick="addPassword()" class="upper">Add </button>
+            <form id="myForm">
+                <div class="site1">
+                    <i class="fa-solid fa-link"></i>
+                    <div class="central"></div>
+                    <input type="text" id="site" placeholder="Enter Website" pattern=".com" required>
+                </div>
+                <div class="site1"><i class="fa-solid fa-user"></i>
+                    <div class="central"></div><input type="text" id="username" required placeholder="Enter Username">
+                </div>
+                <div class="site1"><i class="fa-solid fa-lock"></i>
+                    <div class="central"></div><input type="password" id="password" placeholder="Enter Password" pattern=".{8,20}" minlength="8" maxlength="20" required
+                    >
+                </div>
+                <button onclick="addPassword()" class="upper">Add </button>
+            </form>
+            
         </div>
         <div class="image">
             <img src="password manage.png" alt="password">
