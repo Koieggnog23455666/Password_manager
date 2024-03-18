@@ -27,44 +27,105 @@ function addPassword() {
         <div id='secondary' class='element'>
             <div id='first' class='element' style="color:white">${site}</div>
             <div id='second' class='element' style="color:white">${username}</div>
-            <div id="show" class='element' style="color:white">${password}</div>
+            <div class="show element" style="color:white" data-original-password="${password}">${'*'.repeat(password.length)}</div>
         </div>
         <div class="delete" onclick="deletePassword(this)"><i class="fa-solid fa-trash"></i></div>
     </div>`;
+
+    document.getElementById('passwords').appendChild(li);
     document.getElementById("site").value = "";
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
-    document.getElementById('passwords').appendChild(li);
-
     // Save data to localStorage
     saveToLocalStorage(site, username, password);
     updateList();
     // window.location.reload();
-
 }
 
+
+//save to local storage
 function saveToLocalStorage(site, username, password) {
     let passwords = JSON.parse(localStorage.getItem('passwords')) || [];
     passwords.push({ site, username, password });
     localStorage.setItem('passwords', JSON.stringify(passwords));
 }
 
+
+//deletes from passwords list
 function deletePassword(element) {
     const site = element.parentNode.querySelector('#first').textContent;
     const username = element.parentNode.querySelector('#second').textContent;
+    const password = element.parentNode.querySelector('.show').textContent;
 
     // Remove data from localStorage
-    removeFromLocalStorage(site, username);
+    removeFromLocalStorage(site, username, password);
 
     element.parentNode.remove();
     updateList();
 }
 
-function removeFromLocalStorage(site, username) {
+//removes data from local storage
+function removeFromLocalStorage(site, username, password) {//it takes the deletePassword(site,username,passwords) and the data present in local storage filter the password according to conditions and make a new array which have a local storage wtih that deleted items
     let passwords = JSON.parse(localStorage.getItem('passwords')) || [];
-    passwords = passwords.filter((pass) => pass.site !== site || pass.username !== username);
+    passwords = passwords.filter((pass) => pass.site !== site || pass.username !== username || pass.password !== password);
     localStorage.setItem('passwords', JSON.stringify(passwords));
 }
+
+
+//finding the list in search bar and adding an event listener to it 
+
+searchInput.addEventListener('input', function () {
+    const passwords = document.getElementById('passwords');//select the ul with id 'passwords'
+    const searchInputValue = this.value.trim().toLowerCase();
+    const passDivs = Array.from(passwords.getElementsByClassName('passDiv'));//converts into array from the ul 
+    passDivs.forEach((div) => {
+        const site = div.querySelector('#first').textContent.toLowerCase();
+        const itemText = `${site}`; //searching by website name
+        if (itemText.includes(searchInputValue)) {  //in this items will show when the search Input match with items present in passDiv class
+            div.style.display = 'block';
+            updateList();
+        } else {
+            div.style.display = 'none';
+            updateList();//else show the empty text
+        }
+    });
+    if (searchInputValue === '' ) {
+        displayAllData();
+    }
+});
+
+
+function displayAllData() {
+    const searchInput = document.getElementById('searchInput');
+const dataList = document.getElementsByClassName('passDiv');
+    dataList.innerHTML = '';
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+        const item = `<li>${value}</li>`;
+        dataList.insertAdjacentHTML('beforeend', item);
+    }
+}
+
+// Function to toggle password visibility
+const togglePasswordsCheckbox = document.getElementById('togglePasswords');
+function togglePasswordVisibility() {
+    const showPasswords = togglePasswordsCheckbox.checked;
+    const passwordElements = document.querySelectorAll('.show');//it select the password class with show
+
+    passwordElements.forEach((passwordElement) => {
+
+        if (showPasswords) {
+            passwordElement.textContent = passwordElement.dataset.originalPassword;
+        } else {
+            passwordElement.textContent = '*'.repeat(passwordElement.dataset.originalPassword.length);
+        }
+    });
+}
+
+// Add event listener for checkbox state change
+togglePasswordsCheckbox.addEventListener('change', togglePasswordVisibility);
+
 // Initial load from localStorage
 document.addEventListener('DOMContentLoaded', () => {
     let passwords = JSON.parse(localStorage.getItem('passwords')) || [];
@@ -83,6 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
         updateList()
     }
 });
+
+// Function to add password to DOM
 function addPasswordToDOM(site, username, password) {
     const First = site[0].toUpperCase();
     const li = document.createElement('div');
@@ -93,66 +156,40 @@ function addPasswordToDOM(site, username, password) {
         <div id='secondary' class='element'>
             <div id='first' class='element' style="color:white">${site}</div>
             <div id='second' class='element' style="color:white">${username}</div>
-            <div id="show" class='element' style="color:white">${'*'.repeat(password.length)}</div>
+            <div class="show element" style="color:white" data-original-password="${password}">${'*'.repeat(password.length)}</div>
         </div>
         <div class="delete" onclick="deletePassword(this)"><i class="fa-solid fa-trash"></i></div>
     </div>`;
     document.getElementById('passwords').appendChild(li);
-    updateList()
+    updateList();
+
+    // Add event listener to toggle password visibility for newly created password
+    const passwordElement = li.querySelector('.show');
+    passwordElement.addEventListener('click', togglePasswordVisibility);
 }
-// Add an id to the checkbox
-const togglePasswordsCheckbox = document.getElementById('togglePasswords');
-
-// Add an event listener to the checkbox
-togglePasswordsCheckbox.addEventListener('change', function() {
-    const showPasswords = this.checked;
-    // Select all password elements
-    const passwordElements = document.querySelectorAll('#show');
-    
-
-    // Iterate over each password element
-    passwordElements.forEach((passwordElement) => {
-        // Check if the password is currently hidden
-        const isHidden = passwordElement.textContent.includes('*');
-
-        // Store original password before hiding
-        if (!passwordElement.dataset.originalPassword) {
-            passwordElement.dataset.originalPassword = passwordElement.textContent;
-        }
-
-        // Update password visibility based on the checkbox status and current visibility
-        if (showPasswords && isHidden) {
-            // Replace asterisks with actual password
-            passwordElement.innerHTML = passwordElement.dataset.originalPassword;
-        } else {
-            // Replace actual password with asterisks
-            passwordElement.textContent = '*'.repeat(passwordElement.dataset.originalPassword.length);
-        }
-    });
-});
-
-
-
-
 
 document.getElementById("myForm").addEventListener("submit", function (event) {
-    var itemNameInput = document.getElementById("password");
-    if (!itemNameInput.checkValidity()) {
+    var passwordInput = document.getElementById("password");
+    if (!passwordInput.checkValidity()) {
         alert("Password must be at least 8 characters");
         event.preventDefault();
         return;
     }
     else {
         // Add item to the list
-        var itemList = document.getElementById("passwords");
-        var itemText = itemNameInput.value;
-        var li = document.getElementsByClassName("passDiv");
-        li.textContent = itemText;
-        itemList.appendChild(li);
+        var site = document.getElementById('site').value;
+        var username = document.getElementById('username').value;
+        var password = passwordInput.value;
+        addPasswordToDOM(site, username, password);
+        saveToLocalStorage(site, username, password);
+        updateList();
     }
     event.preventDefault();
 });
 
+
+
+//delete the password saves in local storage
 function deletePassword(element) {
     // Remove the password entry from the DOM
     element.parentNode.parentNode.remove();
@@ -170,52 +207,10 @@ function deletePassword(element) {
     localStorage.setItem('passwords', JSON.stringify(updatedPasswords));
 }
 
-//finding the list in search bar  and adding an event listener to it 
-const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('input', function () {
-    const passwords = document.getElementById('passwords');
-    const searchInputValue = this.value.trim().toLowerCase();
-    const passDivs = Array.from(passwords.getElementsByClassName('passDiv'));
-    passDivs.forEach((div) => {
-        const site = div.querySelector('#first').textContent.toLowerCase();
-        // const username = div.querySelector('#second').textContent.toLowerCase();
-        // const password = div.querySelector('#show').textContent.toLowerCase();
-        const itemText = `${site}`;
-        if (itemText.includes(searchInputValue)) {
-            div.style.display = 'block';
-            updateList()
-        } else {
-            div.style.display = 'none';
-            updateList()
-        }
-    });
-});
-clearButton.addEventListener('click', () => {
-    searchInput.value = '';
-    Array.from(passDivs).forEach((div) => {
-        div.style.display = 'block';
-    });
 
-    passwordsDiv.innerHTML = originalContent;
-    updateList();
-});
 // Update the count and show "Empty" message if there are no passwords
 function updateList() {
-    // const passwords = JSON.parse(localStorage.getItem('passwords')) || [];
-    // const passwordsDiv = document.getElementById('passwords');
 
-    // const passDivs = passwordsDiv.getElementsByClassName('passDiv');
-    // count = passDivs.length;
-    // const total = document.getElementById('count');
-    // total.textContent = count;
-    // if (count === 0) {
-    //     passwordsDiv.innerHTML = '<span class="empty-text"><i class="fa-solid fa-unlock"></i> Empty</span>';
-    // } else {
-    //     const emptyText = document.querySelector('.empty-text');
-    //     if (emptyText) {
-    //         emptyText.remove();
-    //     }
-    // }
     const passwordsDiv = document.getElementById('passwords');
     const passDivs = passwordsDiv.getElementsByClassName('passDiv');
     let visibleCount = 0;
