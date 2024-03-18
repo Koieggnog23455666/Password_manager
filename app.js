@@ -84,28 +84,17 @@ searchInput.addEventListener('input', function () {
         if (itemText.includes(searchInputValue)) {  //in this items will show when the search Input match with items present in passDiv class
             div.style.display = 'block';
             updateList();
-        } else {
+        }
+        
+        else {
             div.style.display = 'none';
             updateList();//else show the empty text
         }
     });
-    if (searchInputValue === '' ) {
-        displayAllData();
-    }
+   
+ 
 });
 
-
-function displayAllData() {
-    const searchInput = document.getElementById('searchInput');
-const dataList = document.getElementsByClassName('passDiv');
-    dataList.innerHTML = '';
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
-        const item = `<li>${value}</li>`;
-        dataList.insertAdjacentHTML('beforeend', item);
-    }
-}
 
 // Function to toggle password visibility
 const togglePasswordsCheckbox = document.getElementById('togglePasswords');
@@ -126,12 +115,12 @@ function togglePasswordVisibility() {
 // Add event listener for checkbox state change
 togglePasswordsCheckbox.addEventListener('change', togglePasswordVisibility);
 
-// Initial load from localStorage
+// Initial load from localStorage 
 document.addEventListener('DOMContentLoaded', () => {
     let passwords = JSON.parse(localStorage.getItem('passwords')) || [];
     const agCount = document.getElementById('count');
     let count = passwords.length;
-    agCount.textContent = count;
+    agCount.textContent = count;//it updates the count variable according to password saves
     if (passwords.length > 0) {
         passwords.forEach((pass) => {
             const { site, username, password } = pass;
@@ -214,7 +203,7 @@ function updateList() {
     const passwordsDiv = document.getElementById('passwords');
     const passDivs = passwordsDiv.getElementsByClassName('passDiv');
     let visibleCount = 0;
-    Array.from(passDivs).forEach((div) => {
+    Array.from(passDivs).forEach((div) => {//it count the items  that have display:block
         if (div.style.display !== 'none') {
             visibleCount++;
         }
